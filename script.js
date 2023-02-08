@@ -1,4 +1,4 @@
-let input = [
+const input = [
 	"Kuro",
 	"Anna",
 	"Lucy",
@@ -54,10 +54,35 @@ function getRandomNames(arr, n) {
   return result;
 }
 
-console.log(getRandomNames(["a", "b", "c", "d", "e"], 3));
-updateChart("Jojo")
+function createChart() {
+	const chartBody = document.getElementById("name-chart-data");
+	for (item of input) {
+		console.log(item);
+		const tr = document.createElement("tr");
+		const th = document.createElement("th");
+		th.textContent = item;
+		const td = document.createElement("td")
+		td.setAttribute("id", item);
+		td.setAttribute("style", "--size: calc( 0/6 )");
+
+		tr.appendChild(th)
+		tr.appendChild(td)
+		chartBody.appendChild(tr)
+	}
+}
 
 function updateChart(name) {
 	const column = document.getElementById(name).style.cssText
-	document.getElementById(name).style.cssText = column.replace(/\d/, parseInt(column.match(/\d/)) + 1);
+	const amount = parseInt(column.match(/\d/));
+	document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
+	if (amount == 3) {
+		input.splice(input.indexOf(name), 1);
+	}
+}
+
+createChart(input)
+
+for (let i = 0; i < 90; i++) {
+  const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)]
+  updateChart(randomName);
 }
