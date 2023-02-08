@@ -1,33 +1,37 @@
-html, body {
-	height: 100%;
+* {
+  border: 1px solid red;
 }
 
-#name-chart tbody {
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow:
-		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
-		5px 5px 5px rgba(0, 0, 0, 0.5);
+html,
+body {
+  height: 100%;
 }
 
-#name-chart tbody td {
-	margin-inline: 0px;
-	border-radius: 3px;
-	box-shadow:
-		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
-		5px 5px 5px rgba(0, 0, 0, 0.5);
+h1 {
+  text-align: center;
 }
 
-#name-chart.column {
-	top: 70%;
-	height: 200px;
-	/* max-width: 300px; */
-	margin: 0 auto;
+button {
+  padding: 40px;
+  border-radius: 30px;
 }
 
-#name-chart caption {
-	font-size: 1.2rem;
-	font-weight: bold;
-	line-height: 0.5rem;
-	color: black;
+.button-container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+button:hover {
+  background-color: lightgray;
+}
+
+button:active {
+  background-color: gray;
 }
