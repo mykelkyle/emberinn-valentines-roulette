@@ -1,0 +1,28 @@
+#name-chart tbody {
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow:
+		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
+		5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#name-chart tbody td {
+	margin-inline: 0px;
+	border-radius: 3px;
+	box-shadow:
+		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
+		5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#name-chart.column {
+	height: 200px;
+	max-width: 300px;
+	margin: 0 auto;
+}
+
+#name-chart caption {
+	font-size: 1.2rem;
+	font-weight: bold;
+	line-height: 0.5rem;
+	color: black;
+}

@@ -55,3 +55,9 @@ function getRandomNames(arr, n) {
 }
 
 console.log(getRandomNames(["a", "b", "c", "d", "e"], 3));
+updateChart("Jojo")
+
+function updateChart(name) {
+	const column = document.getElementById(name).style.cssText
+	document.getElementById(name).style.cssText = column.replace(/\d/, parseInt(column.match(/\d/)) + 1);
+}

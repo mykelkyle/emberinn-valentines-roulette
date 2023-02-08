@@ -5,9 +5,36 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>EmberInn Valentine Simulator</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+	<link rel="stylesheet" href="stylesheet.css">
 	<script src="script.js" defer></script>
 </head>
 <body>
-	<button id="wheel"></button>
+	<button id="wheel">Get 3 Random Names</button>
+	<table class="charts-css column show-heading show-labels show-primary-axis show-6-secondary-axes" id="name-chart">
+		<caption> Name Distribution Chart </caption>
+		<tbody>
+			<tr id="Jojoo">
+				<th> Jojo </th>
+				<td id="Jojo" style="--size: calc( 4/6 )"></td>
+			</tr>
+			<tr>
+				<th> Mykel </th>
+				<td style="--size: calc( 3/6 )"></td>
+			</tr>
+			<tr>
+				<th> Wild </th>
+				<td style="--size: calc( 1/6 )"></td>
+			</tr>
+			<tr>
+				<th> Kuro </th>
+				<td style="--size: calc( 2/6 )"></td>
+			</tr>
+			<tr>
+				<th> Eden </th>
+				<td style="--size: calc( 6/6 )"></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
