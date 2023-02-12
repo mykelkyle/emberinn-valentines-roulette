@@ -32,8 +32,11 @@ const input = [
 ];
 
 const startBtn = document.getElementById("start-button");
+const nameContainer = document.querySelector(".name-container");
+const memberContainer = document.querySelector(".member-container");
 const btnContainer = document.querySelector(".button-container");
 let counter = 0;
+let nameArr = [];
 
 function renderChoices() {
   for (i = 0; i < 3; i++) {
@@ -43,6 +46,23 @@ function renderChoices() {
     choiceBtn.textContent += getRandomNames(input, 3)[
       Math.floor(Math.random() * 3)
     ];
+  }
+}
+
+function addName(name) {
+  const nameBtn = document.createElement("button");
+  nameContainer.appendChild(nameBtn);
+  nameBtn.textContent = name;
+  nameArr.push(name);
+}
+
+function addMembers() {
+  for (i = 0; i < input.length; i++) {
+    if (nameArr.includes(input[i])) continue;
+    const memberBtn = document.createElement("button");
+    memberBtn.setAttribute("class", "member-button");
+    memberContainer.appendChild(memberBtn);
+    memberBtn.textContent = input[i];
   }
 }
 
@@ -72,15 +92,23 @@ startBtn.addEventListener("click", () => {
 
 // Choice buttons
 
+// document.body.addEventListener("mouseover", function (e) {
+//   if (e.target.className == "member-button") {
+//     e.target.textContent = "+";
+//   }
+// });
+
 document.body.addEventListener("click", function (e) {
   if (e.target.id == "choice-button") {
     clearChoices();
     renderChoices();
+    addName(e.target.textContent);
     counter += 1;
 
     if (counter == 3) {
       clearChoices();
       endScreen();
+      addMembers();
     }
   }
 });
