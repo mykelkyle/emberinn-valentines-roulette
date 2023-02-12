@@ -92,11 +92,12 @@ startBtn.addEventListener("click", () => {
 
 // Choice buttons
 
-// document.body.addEventListener("mouseover", function (e) {
-//   if (e.target.className == "member-button") {
-//     e.target.textContent = "+";
-//   }
-// });
+document.body.addEventListener("click", function (e) {
+  if (e.target.className == "member-button") {
+    e.target.classList.add("hidden");
+    addName(e.target.textContent);
+  }
+});
 
 document.body.addEventListener("click", function (e) {
   if (e.target.id == "choice-button") {
