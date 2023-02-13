@@ -27,12 +27,39 @@ button {
   padding: 15px;
 }
 
+textarea {
+  width: 500px;
+  height: 250px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  margin-bottom: 50px;
+  max-height: 200px;
+  resize: none;
+}
+
+#start-button {
+  justify-content: center;
+  align-items: center;
+}
+
 .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   flex-grow: 1;
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
 .name-container,
@@ -59,13 +86,8 @@ button {
 
 .full-container {
   display: flex;
+  justify-content: space-between;
   height: 85%;
-}
-
-.footer {
-  height: 100px;
-  display: inline-flex;
-  text-align: center;
 }
 
 .hidden {
@@ -90,30 +112,28 @@ button:active {
 }
 
 #name-chart tbody {
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow:
-		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
-		5px 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.5),
+    5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 #name-chart tbody td {
-	margin-inline: 0px;
-	border-radius: 3px;
-	box-shadow:
-		inset -5px -5px 10px rgba(0, 0, 0, 0.5),
-		5px 5px 5px rgba(0, 0, 0, 0.5);
+  margin-inline: 0px;
+  border-radius: 3px;
+  box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.5),
+    5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 #name-chart.column {
-	height: 200px;
-	/* max-width: 300px; */
-	margin: 0 auto;
+  height: 200px;
+  /* max-width: 300px; */
+  margin: 0 auto;
 }
 
 #name-chart caption {
-	font-size: 1.2rem;
-	font-weight: bold;
-	line-height: 0.5rem;
-	color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 0.5rem;
+  color: black;
 }
