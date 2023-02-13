@@ -39,13 +39,13 @@ let counter = 0;
 let nameArr = [];
 
 function renderChoices() {
-  for (i = 0; i < 3; i++) {
-    const choiceBtn = document.createElement("button");
-    choiceBtn.setAttribute("id", "choice-button");
-    btnContainer.appendChild(choiceBtn);
-    choiceBtn.textContent += getRandomNames(input, 3)[
-      Math.floor(Math.random() * 3)
-    ];
+  const randomNames = getRandomNames(input, 3)
+  console.log(randomNames);
+  for (const item of randomNames) {
+	const choiceButton = document.createElement("button");
+	choiceButton.setAttribute("id", "choice-button");
+	choiceButton.textContent = item;
+	btnContainer.appendChild(choiceButton);
   }
 }
 
@@ -172,8 +172,8 @@ function updateChart(name) {
 
 createChart(input);
 
-const len = input.length * 3
-for (let i = 0; i < len; i++) {
-  const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)]
-  updateChart(randomName);
-}
+// const len = input.length * 3
+// for (let i = 0; i < len; i++) {
+//   const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)]
+//   updateChart(randomName);
+// }
