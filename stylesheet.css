@@ -10,7 +10,10 @@ body {
 }
 
 h1 {
+  font-family: "Inter", sans-serif;
   text-align: center;
+  box-shadow: 6px 3px 3px gray;
+  padding: 20px;
 }
 
 button {
@@ -57,8 +60,12 @@ button {
 .full-container {
   display: flex;
   height: 85%;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+}
+
+.footer {
+  height: 100px;
+  display: inline-flex;
+  text-align: center;
 }
 
 .hidden {
