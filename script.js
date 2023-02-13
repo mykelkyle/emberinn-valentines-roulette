@@ -91,14 +91,20 @@ startBtn.addEventListener("click", () => {
   renderChoices();
 });
 
-// Choice buttons
+// Add Member buttons
 
 document.body.addEventListener("click", function (e) {
   if (e.target.className == "member-button") {
+    if (nameContainer.childElementCount > 6) {
+      alert("Error, maximum of 6 valentines.");
+      return;
+    }
     e.target.classList.add("hidden");
     addName(e.target.textContent);
   }
 });
+
+// Choice buttons
 
 document.body.addEventListener("click", function (e) {
   if (e.target.id == "choice-button") {
@@ -123,6 +129,8 @@ document.body.addEventListener("click", function (e) {
 });
 
 // Text input buttons (Your Valentines)
+// If no text box is linked with a particular name's ID, create one.
+// Else, hide the text box
 
 document.body.addEventListener("click", function (e) {
   if (e.target.className == "name-button") {
