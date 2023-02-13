@@ -146,15 +146,14 @@ function getRandomNames(arr, n) {
 }
 
 function createChart() {
-  const chartBody = document.getElementById("name-chart-data");
-  for (item of input) {
-    console.log(item);
-    const tr = document.createElement("tr");
-    const th = document.createElement("th");
-    th.textContent = item;
-    const td = document.createElement("td");
-    td.setAttribute("id", item);
-    td.setAttribute("style", "--size: calc( 0/6 )");
+	const chartBody = document.getElementById("name-chart-data");
+	for (item of input) {
+		const tr = document.createElement("tr");
+		const th = document.createElement("th");
+		th.textContent = item;
+		const td = document.createElement("td")
+		td.setAttribute("id", item);
+		td.setAttribute("style", "--size: calc( 0/6 )");
 
     tr.appendChild(th);
     tr.appendChild(td);
@@ -163,20 +162,18 @@ function createChart() {
 }
 
 function updateChart(name) {
-  const column = document.getElementById(name).style.cssText;
-  const amount = parseInt(column.match(/\d/));
-  document.getElementById(name).style.cssText = column.replace(
-    /\d/,
-    amount + 1
-  );
-  if (amount == 3) {
-    input.splice(input.indexOf(name), 1);
-  }
+	const column = document.getElementById(name).style.cssText
+	const amount = parseInt(column.match(/\d/));
+	document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
+	if (amount == 3 - 1) {
+		input.splice(input.indexOf(name), 1);
+	}
 }
 
 createChart(input);
 
-for (let i = 0; i < 90; i++) {
-  const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)];
+const len = input.length * 3
+for (let i = 0; i < len; i++) {
+  const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)]
   updateChart(randomName);
 }
