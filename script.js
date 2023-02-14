@@ -35,17 +35,15 @@ const startBtn = document.getElementById("start-button");
 const nameContainer = document.querySelector(".name-container");
 const memberContainer = document.querySelector(".member-container");
 const btnContainer = document.querySelector(".button-container");
+const requiredChoices = 3;
+const extraChoices = 3;
 let counter = 0;
 let nameArr = [];
 
 function renderChoices() {
-  const randomNames = getRandomNames(input, 3)
-  console.log(randomNames);
-  for (const item of randomNames) {
-	const choiceButton = document.createElement("button");
-	choiceButton.setAttribute("id", "choice-button");
-	choiceButton.textContent = item;
-	btnContainer.appendChild(choiceButton);
+  const randomNames = getRandomNames(input, requiredChoices)
+  for (const [number, item] of randomNames.entries()) {
+	document.querySelector(".choice-button-" + number).textContent = item;
   }
 }
 
@@ -56,42 +54,38 @@ function addName(name) {
   nameArr.push(name);
 }
 
-function addMembers() {
-  for (i = 0; i < input.length; i++) {
-    if (nameArr.includes(input[i])) continue;
+function renderMembers() {
+  input.filter(name => !nameArr.includes(name)).forEach(item, i => {
     const memberBtn = document.createElement("button");
     memberBtn.setAttribute("class", "member-button");
     memberContainer.appendChild(memberBtn);
-    memberBtn.textContent = input[i];
-  }
-}
-
-function clearChoices() {
-  while (btnContainer.firstChild) {
-    btnContainer.removeChild(btnContainer.firstChild);
-  }
-}
-
-function restart() {
-  location.reload();
-}
-
-function endScreen() {
-  const endBtn = document.createElement("button");
-  btnContainer.appendChild(endBtn);
-  endBtn.setAttribute("id", "end-button");
-  endBtn.textContent += "Reload";
+    memberBtn.textContent = name;
+  })
 }
 
 //  Start button
-
 startBtn.addEventListener("click", () => {
   startBtn.classList.add("hidden");
+  for (i = 0; i < requiredChoices; i++) {
+	const choiceBtn = document.createElement("button").setAttribute("id", "choice-button-" + i);
+	btnContainer.appendChild(choiceBtn);
+  }
   renderChoices();
 });
 
 // Choice buttons
+for (i = 0; i < requiredChoices; i++) {
+	document.querySelector("choice-button-" + i).addEventListener("click", function (e) {
+		renderChoices();
+		addName(e.target.textContent);
+		if (nameArr.length >= requiredChoices) {
+			btnContainer.textContent = "";
+			renderMembers();
+		}
+	});
+}
 
+// Member button
 document.body.addEventListener("click", function (e) {
   if (e.target.className == "member-button") {
     e.target.classList.add("hidden");
@@ -99,28 +93,6 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "choice-button") {
-    clearChoices();
-    renderChoices();
-    addName(e.target.textContent);
-    counter += 1;
-
-    if (counter == 3) {
-      clearChoices();
-      endScreen();
-      addMembers();
-    }
-  }
-});
-
-// Restart button
-
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "end-button") {
-    restart();
-  }
-});
 
 // This method gets multiple random items from a list by using the Modern Fisher-Yates Shuffle method
 // This method makes duplicates impossible by putting "taken" numbers in the "shuffled part" of the list and only getting a new number from the "unshuffled part".
