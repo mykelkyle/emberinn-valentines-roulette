@@ -35,8 +35,10 @@ const nameContainer = document.querySelector(".name-container");
 const memberContainer = document.querySelector(".member-container");
 const btnContainer = document.querySelector(".button-container");
 const middleContainer = document.querySelector(".middle-container");
+const textboxContainer = document.getElementById("textbox-container");
 let counter = 0;
 let nameArr = [];
+
 function renderChoices() {
   for (i = 0; i < 3; i++) {
     const choiceBtn = document.createElement("button");
@@ -68,24 +70,17 @@ function clearChoices() {
     btnContainer.removeChild(btnContainer.firstChild);
   }
 }
-function restart() {
-  location.reload();
-}
-function endScreen() {
-  const endBtn = document.createElement("button");
-  btnContainer.appendChild(endBtn);
-  endBtn.setAttribute("id", "end-button");
-  endBtn.textContent += "Reload";
-}
 
 function addTextBox(name) {
-  const textAreaEl = document.createElement("TEXTAREA");
+  const textAreaEl = document.createElement("textarea");
   textAreaEl.setAttribute("id", `${name}1`);
+  textAreaEl.setAttribute("class", "textbox");
   textAreaEl.textContent += `Dear ${name},`;
-  middleContainer.appendChild(textAreaEl);
+  textboxContainer.appendChild(textAreaEl);
 }
 
 //  Start button
+
 startBtn.addEventListener("click", () => {
   startBtn.classList.add("hidden");
   renderChoices();
@@ -114,17 +109,12 @@ document.body.addEventListener("click", function (e) {
     counter += 1;
     if (counter == 3) {
       clearChoices();
-      endScreen();
       addMembers();
+
+      const submitBtn = document.createElement("button");
+      submitBtn.textContent = "Send Messages";
+      btnContainer.appendChild(submitBtn);
     }
-  }
-});
-
-// Restart button
-
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "end-button") {
-    restart();
   }
 });
 

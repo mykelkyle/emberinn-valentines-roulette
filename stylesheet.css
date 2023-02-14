@@ -25,6 +25,7 @@ button {
   height: 55px;
   border: none;
   padding: 15px;
+  box-shadow: 2px 2px 2px gray;
 }
 
 textarea {
@@ -44,6 +45,11 @@ textarea {
 #start-button {
   justify-content: center;
   align-items: center;
+}
+
+#textbox-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .button-container {
@@ -92,6 +98,10 @@ textarea {
 
 .hidden {
   display: none;
+}
+
+.green {
+  background-color: green;
 }
 
 button:hover {
