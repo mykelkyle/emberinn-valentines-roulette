@@ -1,6 +1,5 @@
 const input = [
-  "Kuro",
-  "Anna",
+  "Brandon",
   "Lucy",
   "Klara",
   "Kat",
@@ -20,7 +19,6 @@ const input = [
   "Fra",
   "Sid",
   "Selena",
-  "BN",
   "Moka",
   "Taeko",
   "Dar",
@@ -30,23 +28,39 @@ const input = [
   "Salvi",
   "Siwar",
 ];
+
+// const pictures = [
+//   "https://cdn.discordapp.com/avatars/174323796423999488/6938504c07f36ed20e64e1a47877ec5d.webp?size=160",
+//   "https://cdn.discordapp.com/avatars/812478009164431400/e7ff13e548e63335f363374cc2a3355a.webp?size=160",
+// ];
+
 const startBtn = document.getElementById("start-button");
 const nameContainer = document.querySelector(".name-container");
 const memberContainer = document.querySelector(".member-container");
 const btnContainer = document.querySelector(".button-container");
 const middleContainer = document.querySelector(".middle-container");
 const textboxContainer = document.getElementById("textbox-container");
+const instructionsContainer = document.getElementById("instructions-container");
 let counter = 0;
 let nameArr = [];
 
+// function createImage(container, randomName) {
+//   const picture = document.createElement("img");
+//   const arrIndex = input.indexOf(randomName);
+//   picture.setAttribute("src", pictures[arrIndex]);
+//   container.appendChild(picture);
+// }
+
 function renderChoices() {
   for (i = 0; i < 3; i++) {
+    const choiceDiv = document.createElement("div");
     const choiceBtn = document.createElement("button");
+    const randomName = getRandomNames(input, 3)[Math.floor(Math.random() * 3)];
+    choiceDiv.setAttribute("class", "choice-div");
     choiceBtn.setAttribute("id", "choice-button");
-    btnContainer.appendChild(choiceBtn);
-    choiceBtn.textContent += getRandomNames(input, 3)[
-      Math.floor(Math.random() * 3)
-    ];
+    btnContainer.appendChild(choiceDiv);
+    choiceDiv.appendChild(choiceBtn);
+    choiceBtn.textContent += randomName;
   }
 }
 function addName(name) {
@@ -79,6 +93,7 @@ function addTextBox(name) {
   textboxContainer.appendChild(textAreaEl);
 }
 
+function countCharacters() {}
 //  Start button
 
 startBtn.addEventListener("click", () => {
@@ -126,11 +141,16 @@ document.body.addEventListener("click", function (e) {
   if (e.target.className == "name-button") {
     if (document.getElementById(e.target.textContent + "1") == null) {
       addTextBox(e.target.textContent);
-    } else {
-      document
-        .getElementById(e.target.textContent + "1")
-        .classList.toggle("hidden");
     }
+
+    const textareas = middleContainer.querySelectorAll("textarea");
+    for (const textarea of textareas) {
+      textarea.classList.add("hidden");
+    }
+
+    document
+      .getElementById(e.target.textContent + "1")
+      .classList.remove("hidden");
   }
 });
 
