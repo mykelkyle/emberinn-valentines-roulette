@@ -6,7 +6,6 @@ html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
 }
 
 h1 {
@@ -82,7 +81,12 @@ button:active {
   content: "+";
 }
 
+#name-chart {
+	padding-top: 10%;
+}
+
 #name-chart tbody {
+	min-height: 200px;
 	padding: 30px;
 	border-radius: 10px;
 	box-shadow:
