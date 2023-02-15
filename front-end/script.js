@@ -44,6 +44,7 @@ function renderChoices() {
   document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
     choiceBtn.textContent = randomNames[i];
   });
+  localStorage.setItem("generatedChoices", randomNames);
 }
 
 function addName(name) {
@@ -51,6 +52,7 @@ function addName(name) {
   nameContainer.appendChild(nameBtn);
   nameBtn.textContent = name;
   nameArr.push(name);
+  localStorage.setItem("choices", nameArr);
 }
 
 function renderMembers() {
@@ -65,23 +67,33 @@ function renderMembers() {
   }
 }
 
-function clickStart() {
-  startBtn.setAttribute("class", "hidden");
+function renderChoiceButtons() {
   for (const _ of [...Array(requiredChoices)]) {
     const choiceBtn = document.createElement("button");
     choiceBtn.setAttribute("class", "choice-button");
     choiceBtn.setAttribute("onclick", "clickChoice(this)");
     btnContainer.appendChild(choiceBtn);
   }
-  renderChoices();
+}
+
+function clickStart() {
+  startBtn.setAttribute("class", "hidden");
+
+  if (localStorage.getItem("generatedChoices") != null) {
+    backupChoices();
+  } else {
+    renderChoiceButtons();
+    renderChoices();
+  }
 }
 
 function clickChoice(e) {
   addName(e.textContent);
-  renderChoices();
   if (nameArr.length >= requiredChoices) {
     btnContainer.textContent = "";
     renderMembers();
+  } else {
+    renderChoices();
   }
 }
 
@@ -111,6 +123,28 @@ function getRandomNames(arr, n) {
     taken[x] = --len in taken ? taken[len] : len;
   }
   return result;
+}
+
+function backupChoices() {
+  let choices = localStorage.getItem("choices");
+  if (choices != null) {
+    choices = choices.split(",");
+    for (const choice of choices) {
+      const nameBtn = document.createElement("button");
+      nameContainer.appendChild(nameBtn);
+      nameBtn.textContent = choice;
+      nameArr.push(choice);
+    }
+  }
+
+  if (choices.length < 3) {
+    renderChoiceButtons();
+    document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
+      choiceBtn.textContent = localStorage.getItem("generatedChoices").split(",")[i];
+    });
+  } else {
+    renderMembers();
+  }
 }
 
 function createChart() {
