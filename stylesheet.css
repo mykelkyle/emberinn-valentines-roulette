@@ -10,10 +10,13 @@ body {
 }
 
 h1 {
+  text-shadow: 1px 1px 1px;
+  color: rgba(47, 39, 39, 0.559);
   font-family: "Inter", sans-serif;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 20px;
+  box-shadow: rgba(53, 52, 52, 0.24) 0px 3px 8px;
+  padding: 30px;
+  margin-top: 0;
 }
 
 button {
@@ -54,6 +57,12 @@ textarea {
 
 #instructions-container {
   font-family: "Inter", sans-serif;
+}
+
+.incomplete,
+.incomplete:hover {
+  opacity: 50%;
+  background-color: buttonface;
 }
 
 .button-container {
@@ -111,7 +120,19 @@ textarea {
 }
 
 .green {
-  background-color: green;
+  color: rgb(90, 192, 101) !important;
+}
+
+.pink {
+  border: 2px solid rgb(226, 129, 129);
+}
+
+.char-counter {
+  font-size: smaller;
+  margin-top: -45px;
+  margin-left: 420px;
+  margin-bottom: 50px;
+  color: rgb(217, 67, 67);
 }
 
 button:hover {

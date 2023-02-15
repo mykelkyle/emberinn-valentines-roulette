@@ -29,11 +29,6 @@ const input = [
   "Siwar",
 ];
 
-// const pictures = [
-//   "https://cdn.discordapp.com/avatars/174323796423999488/6938504c07f36ed20e64e1a47877ec5d.webp?size=160",
-//   "https://cdn.discordapp.com/avatars/812478009164431400/e7ff13e548e63335f363374cc2a3355a.webp?size=160",
-// ];
-
 const startBtn = document.getElementById("start-button");
 const nameContainer = document.querySelector(".name-container");
 const memberContainer = document.querySelector(".member-container");
@@ -43,13 +38,6 @@ const textboxContainer = document.getElementById("textbox-container");
 const instructionsContainer = document.getElementById("instructions-container");
 let counter = 0;
 let nameArr = [];
-
-// function createImage(container, randomName) {
-//   const picture = document.createElement("img");
-//   const arrIndex = input.indexOf(randomName);
-//   picture.setAttribute("src", pictures[arrIndex]);
-//   container.appendChild(picture);
-// }
 
 function renderChoices() {
   for (i = 0; i < 3; i++) {
@@ -66,6 +54,7 @@ function renderChoices() {
 function addName(name) {
   const nameBtn = document.createElement("button");
   nameBtn.setAttribute("class", "name-button");
+  nameBtn.setAttribute("id", `${name}` + 3);
   nameContainer.appendChild(nameBtn);
   nameBtn.textContent = name;
   nameArr.push(name);
@@ -89,11 +78,19 @@ function addTextBox(name) {
   const textAreaEl = document.createElement("textarea");
   textAreaEl.setAttribute("id", `${name}1`);
   textAreaEl.setAttribute("class", "textbox");
+  textAreaEl.setAttribute("minlength", "250");
   textAreaEl.textContent += `Dear ${name},`;
   textboxContainer.appendChild(textAreaEl);
+  addCharCounter(name);
 }
 
-function countCharacters() {}
+function addCharCounter(name) {
+  const charCounter = document.createElement("span");
+  charCounter.setAttribute("id", `${name}2`);
+  charCounter.setAttribute("class", "char-counter");
+  charCounter.textContent = `Min: 250 / ${name.length + 6}`;
+  middleContainer.appendChild(charCounter);
+}
 //  Start button
 
 startBtn.addEventListener("click", () => {
@@ -125,8 +122,11 @@ document.body.addEventListener("click", function (e) {
     if (counter == 3) {
       clearChoices();
       addMembers();
+      addTextBox(nameArr[0]);
 
       const submitBtn = document.createElement("button");
+      submitBtn.setAttribute("id", "submit-button");
+      submitBtn.setAttribute("class", "incomplete");
       submitBtn.textContent = "Send Messages";
       btnContainer.appendChild(submitBtn);
     }
@@ -135,22 +135,65 @@ document.body.addEventListener("click", function (e) {
 
 // Text input buttons (Your Valentines)
 // If no text box is linked with a particular name's ID, create one.
-// Else, hide the text box
+// Then, hide all textareas and display only selected textarea
 
 document.body.addEventListener("click", function (e) {
   if (e.target.className == "name-button") {
+    if (nameArr.length < 3) return;
+
     if (document.getElementById(e.target.textContent + "1") == null) {
       addTextBox(e.target.textContent);
     }
 
     const textareas = middleContainer.querySelectorAll("textarea");
+    const characterCounters = middleContainer.querySelectorAll("span");
     for (const textarea of textareas) {
       textarea.classList.add("hidden");
     }
-
+    for (const characterCounter of characterCounters) {
+      characterCounter.classList.add("hidden");
+    }
     document
       .getElementById(e.target.textContent + "1")
       .classList.remove("hidden");
+    document
+      .getElementById(e.target.textContent + "2")
+      .classList.remove("hidden");
+  }
+});
+
+// Checks for character count
+document.body.addEventListener("input", function (e) {
+  if (e.target.className == "textbox") {
+    const characterCount = e.target.value.length;
+    const characterCounter = document.getElementById(
+      e.target.id.slice(0, -1) + "2"
+    );
+    const valentineButton = document.getElementById(
+      e.target.id.slice(0, -1) + "3"
+    );
+
+    characterCounter.textContent = "Min: 250 / " + characterCount;
+    if (characterCount >= 250) {
+      characterCounter.classList.add("green");
+      valentineButton.classList.add("pink");
+    } else {
+      characterCounter.classList.remove("green");
+      valentineButton.classList.remove("pink");
+    }
+
+    // Loops through name buttons to detect if all elements have a pink border
+    // If true, then remove opacity from submit messages button
+    const nameButtons = nameContainer.querySelectorAll("button");
+    const nameButtonsArr = Array.from(nameButtons);
+    if (
+      nameButtonsArr.every((nameButton) =>
+        nameButton.className.includes("pink")
+      ) == true
+    ) {
+      const submitBtn = document.getElementById("submit-button");
+      submitBtn.classList.remove("incomplete");
+    }
   }
 });
 
