@@ -96,7 +96,8 @@ const members = [
     "922872362213445683",
   ],
 ];
-const names = members.map((item) => item[0]);
+let names = [];
+members.forEach((item) => names.push(item[0]));
 
 const startBtn = document.getElementById("start-button");
 const nameContainer = document.getElementById("name-container");
@@ -148,7 +149,7 @@ async function clickStart() {
 
   // let tempObj = {};
   // for (const member of members) {
-  //   tempObj[member[2]] = "Love you <3";
+  //   tempObj[member[2]] = "Testing for Wild :)";
   // }
   // try {
   //   await fetch("http://localhost:3000", {
@@ -241,6 +242,8 @@ function createChart() {
     const td = document.createElement("td");
     td.setAttribute("id", item);
     td.setAttribute("style", "--size: calc( 0/6 )");
+    td.classList.add("chart-column");
+    td.classList.add("hidden");
 
     tr.appendChild(th);
     tr.appendChild(td);
@@ -258,6 +261,12 @@ function updateChart(name) {
 }
 
 createChart(names);
+const chart = document.getElementById("name-chart");
+const auth = document.getElementById("auth");
+const authLeft = chart.offsetLeft + chart.offsetWidth / 2;
+const authTop = chart.offsetTop + chart.offsetHeight / 2;
+auth.style.left = authLeft - auth.offsetWidth / 2 + "px";
+auth.style.top = authTop + auth.offsetHeight / 2 + "px";
 
 const len = names.length * 3;
 for (let i = 0; i < len; i++) {
@@ -265,4 +274,26 @@ for (let i = 0; i < len; i++) {
   updateChart(randomName);
 }
 
-console.log(names);
+async function openChart(passwordEl) {
+  try {
+    const res = await fetch("http://localhost:3000/auth", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password: document.getElementById(passwordEl).value }),
+    });
+    if (res.status == 200) {
+      document.getElementById("auth").classList.add("hidden");
+      document.querySelectorAll(".chart-column").forEach((column) => {
+        column.classList.remove("hidden");
+      });
+    } else if (res.status == 403) {
+      alert("Password incorrect!");
+    }
+  } catch (error) {
+    alert("Server is out, please save your messages locally and contact JoJo.");
+    console.log(error);
+  }
+}

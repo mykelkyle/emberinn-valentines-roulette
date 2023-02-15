@@ -12,7 +12,6 @@ app.listen(port, () => {
 });
 
 app.post("/", async (req, res) => {
-  console.log(req.body);
   try {
     for (const [memberID, text] of Object.entries(req.body)) {
       await discord(memberID, text);
@@ -22,6 +21,15 @@ app.post("/", async (req, res) => {
   }
   res.end();
 });
+
+app.post("/auth", (req, res) => {
+  if (req.body["password"] == process.env["CHART_PASSWORD"]) {
+    res.status(200).end();
+  } else {
+    res.status(403).end();
+  }
+});
+
 app.get("/eden", async (req, res) => {
   discord("922872362213445683", "test");
   console.log("test");
