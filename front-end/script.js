@@ -188,6 +188,22 @@ function clickMember(e) {
   addName(e.textContent);
 }
 
+// async function clickSend() {
+//   try {
+//     const res = await fetch("http://localhost:3000/auth", {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ password: document.getElementById(passwordEl).value }),
+//     });
+//   } catch (error) {
+//     alert("Server is out, please save your messages locally and contact JoJo.");
+//     console.log(error);
+//   }
+// }
+
 // This method gets multiple random items from a list by using the Modern Fisher-Yates Shuffle method
 // This method makes duplicates impossible by putting "taken" numbers in the "shuffled part" of the list and only getting a new number from the "unshuffled part".
 function getRandomNames(arr, n) {

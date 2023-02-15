@@ -1,4 +1,5 @@
 const discord = require("./discord");
+const schedule = require("node-schedule");
 const cors = require("cors");
 const express = require("express");
 const app = express();
@@ -11,11 +12,15 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-app.post("/", async (req, res) => {
+app.post("/send", async (req, res) => {
   try {
-    for (const [memberID, text] of Object.entries(req.body)) {
-      await discord(memberID, text);
-    }
+    console.log("A new person is ready!");
+    const date = new Date(2023, 1, 16, 00, 18, 0);
+    const job = schedule.scheduleJob(date, async () => {
+      for (const [memberID, text] of Object.entries(req.body)) {
+        await discord(memberID, text);
+      }
+    });
   } catch (error) {
     console.log(error);
   }
