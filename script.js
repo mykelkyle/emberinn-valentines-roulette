@@ -135,6 +135,31 @@ function checkIfComplete() {
   }
 }
 
+function highlightActive(e) {
+  const valentineButtons = document.querySelectorAll(".name-button");
+  const valentineButton = document.getElementById(e.target.id);
+  for (const valentineButton of valentineButtons) {
+    valentineButton.classList.remove("highlighted");
+  }
+  valentineButton.classList.add("highlighted");
+}
+
+function displayActive(e) {
+  const textareas = middleContainer.querySelectorAll("textarea");
+  const characterCounters = middleContainer.querySelectorAll("span");
+  for (const textarea of textareas) {
+    textarea.classList.add("hidden");
+  }
+  for (const characterCounter of characterCounters) {
+    characterCounter.classList.add("hidden");
+  }
+  document
+    .getElementById(e.target.textContent + "1")
+    .classList.remove("hidden");
+  document
+    .getElementById(e.target.textContent + "2")
+    .classList.remove("hidden");
+}
 //  Start button
 
 startBtn.addEventListener("click", () => {
@@ -187,27 +212,18 @@ document.body.addEventListener("click", function (e) {
 // Then, hide all textareas and display only selected textarea
 
 document.body.addEventListener("click", function (e) {
-  if (e.target.className == "name-button") {
+  if (
+    e.target.className == "name-button" ||
+    e.target.className == "name-button pink"
+  ) {
     if (nameArr.length < 3) return;
 
     if (document.getElementById(e.target.textContent + "1") == null) {
       addTextBox(e.target.textContent);
     }
 
-    const textareas = middleContainer.querySelectorAll("textarea");
-    const characterCounters = middleContainer.querySelectorAll("span");
-    for (const textarea of textareas) {
-      textarea.classList.add("hidden");
-    }
-    for (const characterCounter of characterCounters) {
-      characterCounter.classList.add("hidden");
-    }
-    document
-      .getElementById(e.target.textContent + "1")
-      .classList.remove("hidden");
-    document
-      .getElementById(e.target.textContent + "2")
-      .classList.remove("hidden");
+    highlightActive(e);
+    displayActive(e);
   }
 });
 
