@@ -91,6 +91,19 @@ function addCharCounter(name) {
   charCounter.textContent = `Min: 250 / ${name.length + 6}`;
   middleContainer.appendChild(charCounter);
 }
+
+function promptAreYouSure() {
+  const response = confirm(
+    "Are you sure? \n \n This will submit your messages. Press 'OK' only if you are completely finished. Press 'CANCEL' if you'd like to go back."
+  );
+
+  if (response) {
+    console.log("Ok was pressed");
+  } else {
+    console.log("Cancel was pressed");
+  }
+}
+
 //  Start button
 
 startBtn.addEventListener("click", () => {
@@ -193,6 +206,7 @@ document.body.addEventListener("input", function (e) {
     ) {
       const submitBtn = document.getElementById("submit-button");
       submitBtn.classList.remove("incomplete");
+      submitBtn.setAttribute("onclick", "promptAreYouSure()");
     }
   }
 });
