@@ -20,6 +20,8 @@ h1 {
 }
 
 button {
+  background-color: rgb(214, 70, 70);
+  color: white;
   font-size: 15px;
   display: inline-flex;
   justify-content: center;
@@ -77,7 +79,7 @@ img {
 .incomplete,
 .incomplete:hover {
   opacity: 50%;
-  background-color: buttonface;
+  background-color: rgb(214, 70, 70);
 }
 
 .button-container {
@@ -100,6 +102,8 @@ img {
 
 .choice-div > button {
   box-shadow: none;
+  background-color: rgb(214, 70, 70);
+  color: white;
 }
 
 .middle-container {
@@ -147,9 +151,10 @@ img {
   color: rgb(90, 192, 101) !important;
 }
 
-.green-outline {
+.pink {
   /* border: 2px solid rgb(226, 129, 129); */
-  border: 2px solid rgb(90, 192, 101);
+  background-color: pink;
+  /* border: 2px solid rgb(90, 192, 101); */
 }
 
 .char-counter {
@@ -162,11 +167,19 @@ img {
 }
 
 button:hover {
-  background-color: lightgray;
+  background-color: rgb(181, 53, 53);
 }
 
 button:active {
-  background-color: gray;
+  background-color: rgb(141, 32, 32);
+}
+
+.pink:hover {
+  background-color: rgb(233, 160, 172);
+}
+
+.pink:active {
+  background-color: rgb(231, 125, 143);
 }
 
 .member-button:hover {

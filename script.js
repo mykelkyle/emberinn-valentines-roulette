@@ -124,7 +124,7 @@ function checkIfComplete() {
   const submitBtn = document.getElementById("submit-button");
   if (
     nameButtonsArr.every((nameButton) =>
-      nameButton.className.includes("green-outline")
+      nameButton.className.includes("pink")
     ) == true
   ) {
     submitBtn.classList.remove("incomplete");
@@ -225,10 +225,10 @@ document.body.addEventListener("input", function (e) {
     characterCounter.textContent = "Min: 250 / " + characterCount;
     if (characterCount >= 250) {
       characterCounter.classList.add("green");
-      valentineButton.classList.add("green-outline");
+      valentineButton.classList.add("pink");
     } else {
       characterCounter.classList.remove("green");
-      valentineButton.classList.remove("green-outline");
+      valentineButton.classList.remove("pink");
     }
 
     checkIfComplete();
