@@ -61,9 +61,14 @@ img {
   flex-direction: column;
 }
 
+#submit-button {
+  margin-bottom: -100px;
+}
+
 .instructions {
   display: flex;
   margin-top: 22px;
+  margin-bottom: -100px;
   text-align: center;
   border: 2px dotted black;
   padding: 15px;
