@@ -115,13 +115,16 @@ function promptAreYouSure() {
   }
 }
 
+// Loops through name buttons to detect if all elements have a pink border
+// If true, then remove opacity from submit messages button
+
 function checkIfComplete() {
   const nameButtons = nameContainer.querySelectorAll("button");
   const nameButtonsArr = Array.from(nameButtons);
   const submitBtn = document.getElementById("submit-button");
   if (
     nameButtonsArr.every((nameButton) =>
-      nameButton.className.includes("pink")
+      nameButton.className.includes("green-outline")
     ) == true
   ) {
     submitBtn.classList.remove("incomplete");
@@ -137,6 +140,8 @@ function checkIfComplete() {
 startBtn.addEventListener("click", () => {
   startBtn.classList.add("hidden");
   renderChoices();
+  instructionsContainer.classList.add("instructions");
+  instructionsContainer.textContent = "Choose a Valentine!";
 });
 
 // Add Member buttons
@@ -153,7 +158,7 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-// Choice buttons
+// Choice and Submit buttons
 
 document.body.addEventListener("click", function (e) {
   if (e.target.id == "choice-button") {
@@ -165,6 +170,8 @@ document.body.addEventListener("click", function (e) {
       clearChoices();
       addMembers();
       addTextBox(nameArr[0]);
+      instructionsContainer.innerHTML =
+        "Write your messages (At least 250 characters)! <br /> Add up to 3 more Valentines from the 'Members' column!";
 
       const submitBtn = document.createElement("button");
       submitBtn.setAttribute("id", "submit-button");
@@ -218,14 +225,12 @@ document.body.addEventListener("input", function (e) {
     characterCounter.textContent = "Min: 250 / " + characterCount;
     if (characterCount >= 250) {
       characterCounter.classList.add("green");
-      valentineButton.classList.add("pink");
+      valentineButton.classList.add("green-outline");
     } else {
       characterCounter.classList.remove("green");
-      valentineButton.classList.remove("pink");
+      valentineButton.classList.remove("green-outline");
     }
 
-    // Loops through name buttons to detect if all elements have a pink border
-    // If true, then remove opacity from submit messages button
     checkIfComplete();
   }
 });

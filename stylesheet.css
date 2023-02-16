@@ -1,5 +1,6 @@
 * {
   font-family: "Inter", sans-serif;
+  font-weight: bold;
   color: black;
 }
 
@@ -60,7 +61,12 @@ img {
   flex-direction: column;
 }
 
-#instructions-container {
+.instructions {
+  display: flex;
+  margin-top: 22px;
+  text-align: center;
+  border: 2px dotted black;
+  padding: 15px;
 }
 
 .incomplete,
@@ -136,8 +142,9 @@ img {
   color: rgb(90, 192, 101) !important;
 }
 
-.pink {
-  border: 2px solid rgb(226, 129, 129);
+.green-outline {
+  /* border: 2px solid rgb(226, 129, 129); */
+  border: 2px solid rgb(90, 192, 101);
 }
 
 .char-counter {
