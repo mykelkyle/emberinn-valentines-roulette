@@ -69,6 +69,24 @@ img {
   margin-bottom: -100px;
 }
 
+.name-div,
+.member-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 18px;
+}
+
+.minus-button,
+.plus-button {
+  border-radius: 100px;
+  width: 10px;
+  height: 10px;
+}
+
 .instructions {
   background-color: rgb(255, 255, 255);
   display: flex;
@@ -188,15 +206,6 @@ button:active {
 
 .pink:active {
   background-color: rgb(231, 125, 143);
-}
-
-.member-button:hover {
-  font-size: 0px;
-}
-
-.member-button:hover:before {
-  font-size: 15px;
-  content: "+";
 }
 
 #name-chart tbody {

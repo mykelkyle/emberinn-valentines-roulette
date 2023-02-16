@@ -63,19 +63,42 @@ function renderChoices() {
   }
 }
 function addName(name) {
+  const nameDiv = document.createElement("div");
   const nameBtn = document.createElement("button");
+  nameDiv.setAttribute("class", "name-div");
   nameBtn.setAttribute("class", "name-button");
   nameBtn.setAttribute("id", `${name}` + 3);
-  nameContainer.appendChild(nameBtn);
+  nameContainer.appendChild(nameDiv);
+  nameDiv.appendChild(nameBtn);
   nameBtn.textContent = name;
   nameArr.push(name);
+  appendMinusBtn(nameDiv);
 }
+
+function appendMinusBtn(nameDiv) {
+  const minusBtn = document.createElement("button");
+  minusBtn.classList.add("minus-button");
+  minusBtn.textContent = "-";
+  nameDiv.appendChild(minusBtn);
+}
+
+function appendPlusBtn(memberDiv) {
+  const plusBtn = document.createElement("button");
+  plusBtn.classList.add("plus-button");
+  plusBtn.textContent = "+";
+  memberDiv.appendChild(plusBtn);
+}
+
 function addMembers() {
   for (i = 0; i < input.length; i++) {
     if (nameArr.includes(input[i])) continue;
+    const memberDiv = document.createElement("div");
     const memberBtn = document.createElement("button");
+    memberDiv.setAttribute("class", "member-div");
     memberBtn.setAttribute("class", "member-button");
-    memberContainer.appendChild(memberBtn);
+    memberContainer.appendChild(memberDiv);
+    appendPlusBtn(memberDiv);
+    memberDiv.appendChild(memberBtn);
     memberBtn.textContent = input[i];
   }
 }
@@ -172,13 +195,17 @@ startBtn.addEventListener("click", () => {
 // Add Member buttons
 
 document.body.addEventListener("click", function (e) {
-  if (e.target.className == "member-button") {
+  if (e.target.className == "plus-button") {
+    const memberBtn = e.target.parentNode.childNodes[1];
+    const memberDiv = e.target.parentNode;
+    console.log(memberBtn);
     if (nameContainer.childElementCount > 6) {
       alert("Error, maximum of 6 valentines.");
       return;
     }
-    e.target.classList.add("hidden");
-    addName(e.target.textContent);
+
+    memberDiv.classList.add("hidden");
+    addName(memberBtn.textContent);
     checkIfComplete();
   }
 });
