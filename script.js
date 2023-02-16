@@ -104,6 +104,23 @@ function promptAreYouSure() {
   }
 }
 
+function checkIfComplete() {
+  const nameButtons = nameContainer.querySelectorAll("button");
+  const nameButtonsArr = Array.from(nameButtons);
+  const submitBtn = document.getElementById("submit-button");
+  if (
+    nameButtonsArr.every((nameButton) =>
+      nameButton.className.includes("pink")
+    ) == true
+  ) {
+    submitBtn.classList.remove("incomplete");
+    submitBtn.setAttribute("onclick", "promptAreYouSure()");
+  } else {
+    submitBtn.removeAttribute("onclick");
+    submitBtn.classList.add("incomplete");
+  }
+}
+
 //  Start button
 
 startBtn.addEventListener("click", () => {
@@ -121,6 +138,7 @@ document.body.addEventListener("click", function (e) {
     }
     e.target.classList.add("hidden");
     addName(e.target.textContent);
+    checkIfComplete();
   }
 });
 
@@ -197,17 +215,7 @@ document.body.addEventListener("input", function (e) {
 
     // Loops through name buttons to detect if all elements have a pink border
     // If true, then remove opacity from submit messages button
-    const nameButtons = nameContainer.querySelectorAll("button");
-    const nameButtonsArr = Array.from(nameButtons);
-    if (
-      nameButtonsArr.every((nameButton) =>
-        nameButton.className.includes("pink")
-      ) == true
-    ) {
-      const submitBtn = document.getElementById("submit-button");
-      submitBtn.classList.remove("incomplete");
-      submitBtn.setAttribute("onclick", "promptAreYouSure()");
-    }
+    checkIfComplete();
   }
 });
 
