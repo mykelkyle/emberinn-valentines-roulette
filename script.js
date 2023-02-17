@@ -173,6 +173,13 @@ function highlightActive(e) {
   valentineButton.classList.add("highlighted");
 }
 
+function removeHighlighted() {
+  const highlightedBtns = document.querySelectorAll(".highlighted");
+  Array.from(highlightedBtns).forEach((el) =>
+    el.classList.remove("highlighted")
+  );
+}
+
 function displayActive(e, revert) {
   const textareas = middleContainer.querySelectorAll("textarea");
   const characterCounters = middleContainer.querySelectorAll("span");
@@ -246,6 +253,8 @@ document.body.addEventListener("click", function (e) {
     }
 
     // defaults to first valentine active state + textbox
+
+    removeHighlighted();
     nameContainer.removeChild(nameDiv);
     firstValentine.classList.add("highlighted");
     displayActive(firstTextbox, firstValentine);
