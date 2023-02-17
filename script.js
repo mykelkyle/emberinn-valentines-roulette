@@ -285,7 +285,7 @@ document.body.addEventListener("click", function (e) {
       addMembers();
       addTextBox(nameArr[0]);
       instructionsContainer.innerHTML =
-        "Write your messages (At least 250 characters)! <br /> Add up to 3 more Valentines from the 'Members' column!";
+        "Write your messages (At least 250 characters)! <br /> Add up to 3 more Valentines from the 'Members' column! <br />";
 
       const submitBtn = document.createElement("button");
       submitBtn.setAttribute("id", "submit-button");
@@ -318,6 +318,15 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+// Alert for when user tries to submit without complete messages
+
+document.body.addEventListener("click", function (e) {
+  if (e.target.className == "incomplete") {
+    alert(
+      "ALL Valentine messages must be completed (minimum 250 characters) before you can submit"
+    );
+  }
+});
 // Checks for character count
 document.body.addEventListener("input", function (e) {
   if (e.target.className == "textbox") {

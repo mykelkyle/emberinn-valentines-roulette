@@ -9,12 +9,14 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  background-color: #f5f1f1;
+  background-image: url("https://cdn.discordapp.com/attachments/1074529844823601283/1076020032863207486/bro.png");
+  background-repeat: no-repeat;
+  background-position: 50% 60%;
+  background-size: 400px;
 }
 
 h1 {
   color: rgb(214, 70, 70);
-  background-color: rgba(250, 245, 245, 0.72);
   box-shadow: rgba(53, 52, 52, 0.24) 0px 3px 8px;
   padding: 20px 45px;
   margin-top: 0;
@@ -44,7 +46,6 @@ textarea {
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
-  background-color: #f8f8f8;
   font-size: 16px;
   margin-bottom: 50px;
   max-height: 200px;
@@ -56,8 +57,7 @@ img {
 }
 
 #start-button {
-  justify-content: center;
-  align-items: center;
+  margin-top: -135px;
 }
 
 #textbox-container {
@@ -66,7 +66,7 @@ img {
 }
 
 #submit-button {
-  margin-bottom: -100px;
+  margin-bottom: -140px;
 }
 
 .superscript {
@@ -98,19 +98,19 @@ img {
   color: rgb(214, 70, 70);
   font-size: 18px;
   font-weight: lighter;
-  /* background-color: rgb(255, 255, 255); */
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   margin-top: 22px;
   margin-bottom: -100px;
   text-align: center;
-  /* border: 2px dotted black; */
   padding: 15px;
   border-radius: 10px;
 }
 
 .incomplete,
 .incomplete:hover {
-  opacity: 50%;
+  opacity: 70%;
   background-color: rgb(214, 70, 70);
 }
 
@@ -121,6 +121,7 @@ img {
   gap: 20px;
   flex-grow: 1;
   margin: 20px;
+  margin-top: -20px;
 }
 
 .choice-div {
