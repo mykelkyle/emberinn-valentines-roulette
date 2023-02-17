@@ -73,6 +73,7 @@ function addName(name, charCounter) {
   nameBtn.textContent = name;
   nameArr.push(name);
   appendMinusBtn(nameDiv);
+  renderImage(nameBtn);
 
   if (charCounter) {
     const charArr = charCounter.textContent.split(" ");
@@ -113,6 +114,7 @@ function addMembers() {
     appendPlusBtn(memberDiv);
     memberDiv.appendChild(memberBtn);
     memberBtn.textContent = input[i];
+    renderImage(memberBtn);
   }
 }
 

@@ -13,10 +13,10 @@ body {
 }
 
 h1 {
+  color: rgb(214, 70, 70);
   background-color: rgba(250, 245, 245, 0.72);
-  text-align: center;
   box-shadow: rgba(53, 52, 52, 0.24) 0px 3px 8px;
-  padding: 30px;
+  padding: 20px 45px;
   margin-top: 0;
   font-size: 36px;
 }
@@ -69,6 +69,11 @@ img {
   margin-bottom: -100px;
 }
 
+.superscript {
+  font-weight: lighter;
+  font-size: 26px;
+}
+
 .name-div,
 .member-div,
 .first-three {
@@ -90,13 +95,17 @@ img {
 }
 
 .instructions {
-  background-color: rgb(255, 255, 255);
+  color: rgb(214, 70, 70);
+  font-size: 18px;
+  font-weight: lighter;
+  /* background-color: rgb(255, 255, 255); */
   display: flex;
   margin-top: 22px;
   margin-bottom: -100px;
   text-align: center;
-  border: 2px dotted black;
+  /* border: 2px dotted black; */
   padding: 15px;
+  border-radius: 10px;
 }
 
 .incomplete,
@@ -146,19 +155,39 @@ img {
   padding: 15px;
   overflow: scroll;
   font-size: 18px;
+  border: 0px solid black;
+  border-radius: 10px;
+  margin: 10px 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 10px;
 }
 
 .container-title {
+  font-size: 20px;
   text-align: center;
   margin-bottom: 10px;
   padding: 5px;
-  border-bottom: 1px solid black;
 }
 
 .name-container > button,
 .member-container > button {
+  border-radius: 5px;
   padding: 20px;
   margin: 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 10px;
+}
+
+.name-button > img,
+.member-button > img {
+  height: 45px;
+  border-radius: 50px;
+}
+
+.name-button,
+.member-button {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 25px;
 }
 
 .full-container {
@@ -181,7 +210,8 @@ img {
 }
 
 .highlighted {
-  border: 5px solid rgb(255, 255, 255);
+  outline: 5px solid rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.422) 0px 10px 14px;
 }
 
 .char-counter {
