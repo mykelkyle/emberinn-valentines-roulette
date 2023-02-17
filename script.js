@@ -62,7 +62,7 @@ function renderChoices() {
     choiceBtn.textContent += randomName;
   }
 }
-function addName(name) {
+function addName(name, charCounter) {
   const nameDiv = document.createElement("div");
   const nameBtn = document.createElement("button");
   nameDiv.setAttribute("class", "name-div");
@@ -73,6 +73,14 @@ function addName(name) {
   nameBtn.textContent = name;
   nameArr.push(name);
   appendMinusBtn(nameDiv);
+
+  if (charCounter) {
+    const charArr = charCounter.textContent.split(" ");
+    if (charArr[3] > 250) {
+      nameBtn.classList.add("pink");
+      nameDiv.childNodes[1].classList.add("pink");
+    }
+  }
 }
 
 function appendMinusBtn(nameDiv) {
@@ -215,19 +223,20 @@ startBtn.addEventListener("click", () => {
   instructionsContainer.textContent = "Choose a Valentine!";
 });
 
-// Add Member buttons
+// Add Valentine buttons
 
 document.body.addEventListener("click", function (e) {
   if (e.target.className == "plus-button") {
     const memberBtn = e.target.parentNode.childNodes[1];
     const memberDiv = e.target.parentNode;
+    const charCounter = document.getElementById(memberBtn.textContent + "2");
     if (nameContainer.childElementCount > 6) {
       alert("Error, maximum of 6 valentines.");
       return;
     }
 
     memberDiv.classList.add("hidden-buttons");
-    addName(memberBtn.textContent);
+    addName(memberBtn.textContent, charCounter);
     checkIfComplete();
   }
 });
@@ -235,7 +244,7 @@ document.body.addEventListener("click", function (e) {
 // Remove Valentine buttons
 
 document.body.addEventListener("click", function (e) {
-  if (e.target.className == "minus-button") {
+  if (e.target.className.includes("minus-button")) {
     const valentineButton = e.target.parentNode.childNodes[0];
     const nameDiv = e.target.parentNode;
     const hiddenBtns = document.querySelectorAll(".hidden-buttons");
