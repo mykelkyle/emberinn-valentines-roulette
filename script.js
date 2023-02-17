@@ -342,6 +342,17 @@ document.body.addEventListener("input", function (e) {
   }
 });
 
+// Alerts when user presses heart buttons (tries to remove randomized valentines)
+document.body.addEventListener("click", function (e) {
+  if (nameArr.length > 2) {
+    if (e.target.textContent == "♡") {
+      alert(
+        "Valentines with ♡ can not be removed.\nOnly extra valentines may be removed."
+      );
+    }
+  }
+});
+
 // This method gets multiple random items from a list by using the Modern Fisher-Yates Shuffle method
 // This method makes duplicates impossible by putting "taken" numbers in the "shuffled part" of the list and only getting a new number from the "unshuffled part".
 function getRandomNames(arr, n) {
