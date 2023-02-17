@@ -11,8 +11,8 @@ body {
   overflow: hidden;
   background-image: url("https://cdn.discordapp.com/attachments/1074529844823601283/1076020032863207486/bro.png");
   background-repeat: no-repeat;
-  background-position: 50% 60%;
-  background-size: 400px;
+  background-position: 42% 1%;
+  background-size: 100px;
 }
 
 h1 {
@@ -35,7 +35,7 @@ button {
   height: 55px;
   border: none;
   padding: 15px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.582) 0px 3px 8px;
 }
 
 textarea {
@@ -211,8 +211,8 @@ img {
 }
 
 .highlighted {
-  outline: 5px solid rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.422) 0px 10px 14px;
+  outline: 5px solid rgb(253, 253, 253);
+  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
 }
 
 .char-counter {

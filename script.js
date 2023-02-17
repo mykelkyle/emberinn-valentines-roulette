@@ -358,7 +358,7 @@ document.body.addEventListener("click", function (e) {
   if (nameArr.length > 2) {
     if (e.target.textContent == "♡") {
       alert(
-        "Valentines with ♡ can not be removed.\nOnly extra valentines may be removed."
+        "Valentines with ♡ can not be removed.\nOnly additionally added valentines may be removed."
       );
     }
   }
