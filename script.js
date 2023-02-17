@@ -77,8 +77,13 @@ function addName(name) {
 
 function appendMinusBtn(nameDiv) {
   const minusBtn = document.createElement("button");
-  minusBtn.classList.add("minus-button");
-  minusBtn.textContent = "-";
+  if (nameArr.length > 3) {
+    minusBtn.textContent = "-";
+    minusBtn.classList.add("minus-button");
+  } else {
+    minusBtn.textContent = "♡";
+    minusBtn.classList.add("heart-button");
+  }
   nameDiv.appendChild(minusBtn);
 }
 
@@ -102,6 +107,7 @@ function addMembers() {
     memberBtn.textContent = input[i];
   }
 }
+
 function clearChoices() {
   while (btnContainer.firstChild) {
     btnContainer.removeChild(btnContainer.firstChild);
@@ -167,7 +173,7 @@ function highlightActive(e) {
   valentineButton.classList.add("highlighted");
 }
 
-function displayActive(e) {
+function displayActive(e, revert) {
   const textareas = middleContainer.querySelectorAll("textarea");
   const characterCounters = middleContainer.querySelectorAll("span");
   for (const textarea of textareas) {
@@ -176,6 +182,16 @@ function displayActive(e) {
   for (const characterCounter of characterCounters) {
     characterCounter.classList.add("hidden");
   }
+  if (revert) {
+    document
+      .getElementById(revert.textContent + "1")
+      .classList.remove("hidden");
+    document
+      .getElementById(revert.textContent + "2")
+      .classList.remove("hidden");
+    return;
+  }
+
   document
     .getElementById(e.target.textContent + "1")
     .classList.remove("hidden");
@@ -198,15 +214,41 @@ document.body.addEventListener("click", function (e) {
   if (e.target.className == "plus-button") {
     const memberBtn = e.target.parentNode.childNodes[1];
     const memberDiv = e.target.parentNode;
-    console.log(memberBtn);
     if (nameContainer.childElementCount > 6) {
       alert("Error, maximum of 6 valentines.");
       return;
     }
 
-    memberDiv.classList.add("hidden");
+    memberDiv.classList.add("hidden-buttons");
     addName(memberBtn.textContent);
     checkIfComplete();
+  }
+});
+
+// Remove Valentine buttons
+
+document.body.addEventListener("click", function (e) {
+  if (e.target.className == "minus-button") {
+    const valentineButton = e.target.parentNode.childNodes[0];
+    const nameDiv = e.target.parentNode;
+    const hiddenBtns = document.querySelectorAll(".hidden-buttons");
+    const firstValentine = nameContainer.childNodes[3].childNodes[0];
+    const firstTextbox = document.getElementById(
+      firstValentine.textContent + "1"
+    );
+
+    for (i = 0; i < hiddenBtns.length; i++) {
+      if (
+        valentineButton.textContent == hiddenBtns[i].childNodes[1].textContent
+      ) {
+        hiddenBtns[i].classList.remove("hidden-buttons");
+      }
+    }
+
+    // defaults to first valentine active state + textbox
+    nameContainer.removeChild(nameDiv);
+    firstValentine.classList.add("highlighted");
+    displayActive(firstTextbox, firstValentine);
   }
 });
 
@@ -230,6 +272,8 @@ document.body.addEventListener("click", function (e) {
       submitBtn.setAttribute("class", "incomplete");
       submitBtn.textContent = "Send Messages";
       btnContainer.appendChild(submitBtn);
+
+      nameContainer.childNodes[3].childNodes[0].classList.add("highlighted");
     }
   }
 });
@@ -269,9 +313,11 @@ document.body.addEventListener("input", function (e) {
     if (characterCount >= 250) {
       characterCounter.classList.add("green");
       valentineButton.classList.add("pink");
+      valentineButton.parentNode.childNodes[1].classList.add("pink");
     } else {
       characterCounter.classList.remove("green");
       valentineButton.classList.remove("pink");
+      valentineButton.parentNode.childNodes[1].classList.remove("pink");
     }
 
     checkIfComplete();
