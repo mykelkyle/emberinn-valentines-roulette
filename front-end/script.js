@@ -1,4 +1,4 @@
-const members = [
+const membersOld = [
   [
     "Hans",
     "https://cdn.discordapp.com/avatars/166775206336135168/3e01b4d9387308f042fac3632fdec154.webp?size=160",
@@ -96,124 +96,47 @@ const members = [
     "922872362213445683",
   ],
 ];
-let names = [];
-members.forEach((item) => names.push(item[0]));
 
+//
+// Globals
+//
+
+const members = "";
+const memberNames = members.forEach((item) => memberNames.push(item[0]));
 const startBtn = document.getElementById("start-button");
 const nameContainer = document.getElementById("name-container");
 const memberContainer = document.getElementById("member-container");
 const btnContainer = document.getElementById("button-container");
 const requiredChoices = 3;
 const extraChoices = 3;
-let nameArr = [];
+let choicesArr = [];
 
-function renderChoices() {
-  const randomNames = getRandomNames(names, requiredChoices);
-  document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
-    choiceBtn.textContent = randomNames[i];
-  });
-  localStorage.setItem("generatedChoices", randomNames);
-}
+//
+// Helpers
+//
 
-function addName(name) {
-  const nameBtn = document.createElement("button");
-  nameContainer.appendChild(nameBtn);
-  nameBtn.textContent = name;
-  nameArr.push(name);
-  localStorage.setItem("choices", nameArr);
-}
-
-function renderMembers() {
-  for (const member of names) {
-    if (nameArr.includes(member[0])) continue;
-
-    const memberBtn = document.createElement("button");
-    memberBtn.setAttribute("class", "member-button");
-    memberBtn.setAttribute("onclick", "clickMember(this)");
-    memberContainer.appendChild(memberBtn);
-    memberBtn.textContent = member[0];
+function updateData(name) {
+  const column = document.getElementById(name).style.cssText;
+  const amount = parseInt(column.match(/\d/));
+  document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
+  // Todo: 2 to requiredChoices
+  if (amount == 2 - 1) {
+    memberNames.splice(memberNames.indexOf(name), 1);
   }
+  // Todo: add count in storage
+  // Todo: if member count >= 3 satisfied = true
+  // Todo: wait message if 0 choices available
 }
-
-function renderChoiceButtons() {
-  for (const _ of [...Array(requiredChoices)]) {
-    const choiceBtn = document.createElement("button");
-    choiceBtn.setAttribute("class", "choice-button");
-    choiceBtn.setAttribute("onclick", "clickChoice(this)");
-    btnContainer.appendChild(choiceBtn);
-  }
-}
-
-async function clickStart() {
-  startBtn.setAttribute("class", "hidden");
-
-  // let tempObj = {};
-  // for (const member of members) {
-  //   tempObj[member[2]] = "Testing for Wild :)";
-  // }
-  // try {
-  //   await fetch("http://localhost:3000", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(tempObj),
-  //   });
-  // } catch (error) {
-  //   alert("Server is out, please save your messages locally and contact JoJo.");
-  //   console.log(error);
-  // }
-
-  if (localStorage.getItem("generatedChoices") != null) {
-    backupChoices();
-  } else {
-    renderChoiceButtons();
-    renderChoices();
-  }
-}
-
-function clickChoice(e) {
-  addName(e.textContent);
-  if (nameArr.length >= requiredChoices) {
-    btnContainer.textContent = "";
-    renderMembers();
-  } else {
-    renderChoices();
-  }
-}
-
-function clickMember(e) {
-  e.setAttribute("class", "hidden");
-  addName(e.textContent);
-}
-
-// async function clickSend() {
-//   try {
-//     const res = await fetch("http://localhost:3000/auth", {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ password: document.getElementById(passwordEl).value }),
-//     });
-//   } catch (error) {
-//     alert("Server is out, please save your messages locally and contact JoJo.");
-//     console.log(error);
-//   }
-// }
 
 // This method gets multiple random items from a list by using the Modern Fisher-Yates Shuffle method
 // This method makes duplicates impossible by putting "taken" numbers in the "shuffled part" of the list and only getting a new number from the "unshuffled part".
 function getRandomNames(arr, n) {
-  var result = new Array(n),
-    len = arr.length,
-    taken = new Array(len);
+  let result = new Array(n);
+  let len = arr.length;
+  let taken = new Array(len);
 
   while (n--) {
-    // Get random number (x)
-    var x = Math.floor(Math.random() * len);
+    const x = Math.floor(Math.random() * len);
 
     // Fill in the choice list from back to front (cuz `n--` in while loop)
     // Get the name belonging to the random number. If the random number appeared before, use the number linked to in the "taken list" to get a non-duplicate name.
@@ -227,6 +150,57 @@ function getRandomNames(arr, n) {
   return result;
 }
 
+function renderMembers() {
+  for (const member of memberNames) {
+    if (choicesArr.includes(member)) continue;
+
+    const memberBtn = document.createElement("button");
+    memberBtn.setAttribute("class", "member-button");
+    memberBtn.setAttribute("onclick", "clickMember(this)");
+    memberContainer.appendChild(memberBtn);
+    memberBtn.textContent = member;
+  }
+}
+
+function addName(name) {
+  const nameBtn = document.createElement("button");
+  nameContainer.appendChild(nameBtn);
+  nameBtn.textContent = name;
+  choicesArr.push(name);
+  localStorage.setItem("choices", choicesArr);
+  updateData(name);
+}
+
+function renderChoices() {
+  const choiceButtons = document.querySelectorAll(".choice-button");
+  const randomNames =
+    memberNames.length > requiredChoices
+      ? getRandomNames(memberNames, requiredChoices)
+      : getRandomNames(memberNames, memberNames.length);
+
+  if (memberNames.length == requiredChoices - 1)
+    alert(
+      "You're the last person to fill this in, so you'll have limited choices for the required onces. Don't worry, you can still pick anyone from the extra choices and every submitted message gets send at the same time, so noone gets to know who the last person was."
+    );
+  // Todo: if membersArr length == 0 alert wait a lil
+
+  if (memberNames.length < choiceButtons.length) choiceButtons[0].remove();
+  document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
+    choiceBtn.textContent = randomNames[i];
+  });
+  localStorage.setItem("generatedChoices", randomNames);
+  // Todo: update data
+}
+
+function renderChoiceButtons() {
+  for (const _ of [...Array(requiredChoices)]) {
+    const choiceBtn = document.createElement("button");
+    choiceBtn.setAttribute("class", "choice-button");
+    choiceBtn.setAttribute("onclick", "clickChoice(this)");
+    btnContainer.appendChild(choiceBtn);
+  }
+}
+
 function backupChoices() {
   let choices = localStorage.getItem("choices");
   if (choices != null) {
@@ -235,11 +209,11 @@ function backupChoices() {
       const nameBtn = document.createElement("button");
       nameContainer.appendChild(nameBtn);
       nameBtn.textContent = choice;
-      nameArr.push(choice);
+      choicesArr.push(choice);
     }
   }
 
-  if (choices.length < 3) {
+  if (choices.length < requiredChoices) {
     renderChoiceButtons();
     document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
       choiceBtn.textContent = localStorage.getItem("generatedChoices").split(",")[i];
@@ -249,45 +223,58 @@ function backupChoices() {
   }
 }
 
-function createChart() {
-  const chartBody = document.getElementById("name-chart-data");
-  for (item of names) {
-    const tr = document.createElement("tr");
-    const th = document.createElement("th");
-    th.textContent = item;
-    const td = document.createElement("td");
-    td.setAttribute("id", item);
-    td.setAttribute("style", "--size: calc( 0/6 )");
-    td.classList.add("chart-column");
-    td.classList.add("hidden");
+//
+// Listeners
+//
 
-    tr.appendChild(th);
-    tr.appendChild(td);
-    chartBody.appendChild(tr);
+async function clickStart() {
+  localStorage.clear();
+  startBtn.setAttribute("class", "hidden");
+  if (localStorage.getItem("generatedChoices")) {
+    backupChoices();
+  } else {
+    renderChoiceButtons();
+    renderChoices();
   }
 }
 
-function updateChart(name) {
-  const column = document.getElementById(name).style.cssText;
-  const amount = parseInt(column.match(/\d/));
-  document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
-  if (amount == 3 - 1) {
-    names.splice(names.indexOf(name), 1);
+function clickChoice(e) {
+  addName(e.textContent);
+  // Todo: generated choices localstorage array - e.textContain membercount -1
+  // Todo: if membercount == < 3 satisfied false
+  // Todo: 9 to requiredChoices
+  if (choicesArr.length < 9) {
+    renderChoices();
+  } else {
+    btnContainer.textContent = "";
+    renderMembers();
   }
 }
 
-createChart(names);
-const chart = document.getElementById("name-chart");
-const auth = document.getElementById("auth");
-const authLeft = chart.offsetLeft + chart.offsetWidth / 2;
-const authTop = chart.offsetTop + chart.offsetHeight / 2;
-auth.style.left = authLeft - auth.offsetWidth / 2 + "px";
-auth.style.top = authTop + auth.offsetHeight / 2 + "px";
+function clickMember(e) {
+  e.setAttribute("class", "hidden");
+  addName(e.textContent);
+}
 
-const len = names.length * 3;
-for (let i = 0; i < len; i++) {
-  const randomName = getRandomNames(names, 3)[Math.floor(Math.random() * 3)];
-  updateChart(randomName);
+async function clickSend() {
+  let tempObj = {};
+  for (const member of members) {
+    tempObj[member[2]] = "Testing for Wild :)";
+  }
+  try {
+    await fetch("http://localhost:3000", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      // Todo: for each shit
+      body: JSON.stringify(tempObj),
+    });
+  } catch (error) {
+    alert("Server is out, please save your messages locally and contact JoJo.");
+    console.log(error);
+  }
 }
 
 async function openChart(passwordEl) {
@@ -300,6 +287,7 @@ async function openChart(passwordEl) {
       },
       body: JSON.stringify({ password: document.getElementById(passwordEl).value }),
     });
+
     if (res.status == 200) {
       document.getElementById("auth").classList.add("hidden");
       document.querySelectorAll(".chart-column").forEach((column) => {
@@ -313,3 +301,43 @@ async function openChart(passwordEl) {
     console.log(error);
   }
 }
+
+//
+// Initialization
+//
+
+function positionChartAuth() {
+  const chart = document.getElementById("name-chart");
+  const auth = document.getElementById("auth");
+  const authLeft = chart.offsetLeft + chart.offsetWidth / 2;
+  const authTop = chart.offsetTop + chart.offsetHeight / 2;
+  auth.style.left = authLeft - auth.offsetWidth / 2 + "px";
+  auth.style.top = authTop + auth.offsetHeight / 2 + "px";
+}
+
+function createChart() {
+  const chartBody = document.getElementById("name-chart-data");
+  for (item of memberNames) {
+    const tr = document.createElement("tr");
+    const th = document.createElement("th");
+    th.textContent = item;
+    const td = document.createElement("td");
+    td.setAttribute("id", item);
+    td.setAttribute("style", "--size: calc( 0/6 )");
+    td.classList.add("chart-column");
+    td.classList.add("hidden");
+
+    tr.appendChild(th);
+    tr.appendChild(td);
+    chartBody.appendChild(tr);
+    positionChartAuth();
+  }
+}
+
+// const len = memberNames.length * 3;
+// for (let i = 0; i < len; i++) {
+//   const randomName = getRandomNames(memberNames, 3)[Math.floor(Math.random() * 3)];
+//   updateChart(randomName);
+// }
+
+createChart();
