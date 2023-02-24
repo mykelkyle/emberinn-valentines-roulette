@@ -1,136 +1,72 @@
-const membersOld = [
-  [
-    "Hans",
-    "https://cdn.discordapp.com/avatars/166775206336135168/3e01b4d9387308f042fac3632fdec154.webp?size=160",
-    "166775206336135168",
-  ],
-  [
-    "Brandon",
-    "https://cdn.discordapp.com/avatars/174323796423999488/6938504c07f36ed20e64e1a47877ec5d.webp?size=160",
-    "174323796423999488",
-  ],
-  [
-    "Mykel",
-    "https://cdn.discordapp.com/avatars/210556882442518528/7d6101dcf27e434b42d8ecc306ab4f3a.webp?size=160",
-    "210556882442518528",
-  ],
-  [
-    "Zi Shan",
-    "https://cdn.discordapp.com/avatars/248441976947474432/34cdfdb832a495eb167317c1f1c478ff.webp?size=160",
-    "248441976947474432",
-  ],
-  [
-    "Jojo",
-    "https://cdn.discordapp.com/avatars/250957620930805761/ff6bc719ccc1366340495e4ecb958cda.webp?size=160",
-    "250957620930805761",
-  ],
-  [
-    "Mars",
-    "https://cdn.discordapp.com/avatars/276879571599622166/9716a4a599051ca2274bc48d698a7d55.webp?size=160",
-    "276879571599622166",
-  ],
-  [
-    "Wild",
-    "https://cdn.discordapp.com/avatars/286999428492165124/3d0ec6ac79b5f07a98c9efd9373241c9.webp?size=160",
-    "286999428492165124",
-  ],
-  [
-    "Salvi",
-    "https://cdn.discordapp.com/avatars/402114901608235008/0854b8bee2cd1ad259595036ead7b960.webp?size=160",
-    "402114901608235008",
-  ],
-  [
-    "Yari",
-    "https://cdn.discordapp.com/avatars/469918860070486027/1b840a3da967f897e538894a29984197.webp?size=160",
-    "469918860070486027",
-  ],
-  [
-    "Kat",
-    "https://cdn.discordapp.com/avatars/483338046117511178/94bcd1ebf57ecd972a13a10c5db2700f.webp?size=160",
-    "483338046117511178",
-  ],
-  [
-    "Sid",
-    "https://cdn.discordapp.com/avatars/709446231331700767/1495e9a2846a2b9287deef15bf8c6999.webp?size=160",
-    "709446231331700767",
-  ],
-  [
-    "Klara",
-    "https://cdn.discordapp.com/avatars/710953613043826768/b7060beaa14320cffa669ccc6015b177.webp?size=160",
-    "710953613043826768",
-  ],
-  [
-    "Dar",
-    "https://cdn.discordapp.com/avatars/737299797685305344/c3318adf7cb77694c8fc9af466c4872d.webp?size=160",
-    "737299797685305344",
-  ],
-  [
-    "JB",
-    "https://cdn.discordapp.com/avatars/770132074563764235/8b25a98afd93dc2d166deee745fd6a62.webp?size=160",
-    "770132074563764235",
-  ],
-  [
-    "Lucy",
-    "https://cdn.discordapp.com/avatars/812478009164431400/e7ff13e548e63335f363374cc2a3355a.webp?size=160",
-    "812478009164431400",
-  ],
-  ["Saigui", "", "831820579844915201"],
-  [
-    "Siwar",
-    "https://cdn.discordapp.com/avatars/850071420733751387/680c2e49a57ac737276ce754f9503f4a.webp?size=160",
-    "850071420733751387",
-  ],
-  [
-    "Anna",
-    "https://cdn.discordapp.com/avatars/854339067734917141/c31743375a5f4a76033a9d5f4dedf85c.webp?size=160",
-    "854339067734917141",
-  ],
-  [
-    "Nicoll",
-    "https://cdn.discordapp.com/avatars/885682003045920790/569cf5ebd54d6321d225000c6b26cbe2.webp?size=160",
-    "885682003045920790",
-  ],
-  [
-    "Eden",
-    "https://cdn.discordapp.com/avatars/922872362213445683/c3f0c73eda21ba6d7b2d1ba109cdf402.webp?size=160",
-    "922872362213445683",
-  ],
-];
+//
+// Request Wrappers
+//
+
+const baseUrl = "http://localhost:3000";
+
+async function getData(path) {
+  try {
+    return await fetch(baseUrl + path, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  } catch (error) {
+    alert("Server is out, please contact JoJo.");
+    console.log(error);
+  }
+}
+
+async function postData(path, data) {
+  try {
+    return await fetch(baseUrl + path, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    alert("Server is out, please contact JoJo.");
+    console.log(error);
+  }
+}
+
+async function putData(path, data) {
+  try {
+    return await fetch(baseUrl + path, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    alert("Server is out, please contact JoJo.");
+    console.log(error);
+  }
+}
 
 //
 // Globals
 //
 
-const members = "";
-const memberNames = members.forEach((item) => memberNames.push(item[0]));
-const startBtn = document.getElementById("start-button");
-const nameContainer = document.getElementById("name-container");
-const memberContainer = document.getElementById("member-container");
-const btnContainer = document.getElementById("button-container");
-const requiredChoices = 3;
-const extraChoices = 3;
-let choicesArr = [];
+const leftContainer = document.getElementById("left-container");
+const middleContainer = document.getElementById("middle-container");
+const rightContainer = document.getElementById("right-container");
+const requiredAmount = 3;
+const extraAmount = 3;
 
 //
 // Helpers
 //
 
-function updateData(name) {
-  const column = document.getElementById(name).style.cssText;
-  const amount = parseInt(column.match(/\d/));
-  document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
-  // Todo: 2 to requiredChoices
-  if (amount == 2 - 1) {
-    memberNames.splice(memberNames.indexOf(name), 1);
-  }
-  // Todo: add count in storage
-  // Todo: if member count >= 3 satisfied = true
-  // Todo: wait message if 0 choices available
-}
-
 // This method gets multiple random items from a list by using the Modern Fisher-Yates Shuffle method
 // This method makes duplicates impossible by putting "taken" numbers in the "shuffled part" of the list and only getting a new number from the "unshuffled part".
-function getRandomNames(arr, n) {
+function generateOptions(arr, n) {
   let result = new Array(n);
   let len = arr.length;
   let taken = new Array(len);
@@ -150,76 +86,77 @@ function getRandomNames(arr, n) {
   return result;
 }
 
-function renderMembers() {
-  for (const member of memberNames) {
-    if (choicesArr.includes(member)) continue;
-
-    const memberBtn = document.createElement("button");
-    memberBtn.setAttribute("class", "member-button");
-    memberBtn.setAttribute("onclick", "clickMember(this)");
-    memberContainer.appendChild(memberBtn);
-    memberBtn.textContent = member;
+async function createExtras() {
+  const availableMembers = await getData("/members?taken=false");
+  for (const member of availableMembers) {
+    const extraButton = document.createElement("button");
+    extraButton.textContent = member;
+    extraButton.classList.add("extra");
+    rightContainer.appendChild(extraButton);
   }
 }
 
-function addName(name) {
-  const nameBtn = document.createElement("button");
-  nameContainer.appendChild(nameBtn);
-  nameBtn.textContent = name;
-  choicesArr.push(name);
-  localStorage.setItem("choices", choicesArr);
-  updateData(name);
+function createValentineButton(name) {
+  const valentineButton = document.createElement("button");
+  leftContainer.appendChild(valentineButton);
+  valentineButton.textContent = name;
+
+  const valentines = JSON.parse(localStorage.getItem("valentines")) || [];
+  localStorage.setItem("valentines", JSON.stringify([...valentines, name]));
+
+  const column = document.getElementById(name).style.cssText;
+  const amount = parseInt(column.match(/\d/));
+  document.getElementById(name).style.cssText = column.replace(/\d/, amount + 1);
 }
 
-function renderChoices() {
-  const choiceButtons = document.querySelectorAll(".choice-button");
-  const randomNames =
-    memberNames.length > requiredChoices
-      ? getRandomNames(memberNames, requiredChoices)
-      : getRandomNames(memberNames, memberNames.length);
+function renderOptions() {
+  const limitedMembersWarning =
+    "You're one of the last ones to fill this in, so you'll have limited options for the required valentines. Don't worry, you can still pick anyone from the extra memberlist and every submitted message gets send at the same time, so noone gets to know who the last person was.";
+  const noMembersWarning =
+    "You're one the last ones to fill this in and someone is busy choosing their last valentine, so please wait a few minutes before refreshing the page to get access to the remaining valentine options";
 
-  if (memberNames.length == requiredChoices - 1)
-    alert(
-      "You're the last person to fill this in, so you'll have limited choices for the required onces. Don't worry, you can still pick anyone from the extra choices and every submitted message gets send at the same time, so noone gets to know who the last person was."
-    );
-  // Todo: if membersArr length == 0 alert wait a lil
-
-  if (memberNames.length < choiceButtons.length) choiceButtons[0].remove();
-  document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
-    choiceBtn.textContent = randomNames[i];
-  });
-  localStorage.setItem("generatedChoices", randomNames);
-  // Todo: update data
-}
-
-function renderChoiceButtons() {
-  for (const _ of [...Array(requiredChoices)]) {
-    const choiceBtn = document.createElement("button");
-    choiceBtn.setAttribute("class", "choice-button");
-    choiceBtn.setAttribute("onclick", "clickChoice(this)");
-    btnContainer.appendChild(choiceBtn);
-  }
-}
-
-function backupChoices() {
-  let choices = localStorage.getItem("choices");
-  if (choices != null) {
-    choices = choices.split(",");
-    for (const choice of choices) {
-      const nameBtn = document.createElement("button");
-      nameContainer.appendChild(nameBtn);
-      nameBtn.textContent = choice;
-      choicesArr.push(choice);
-    }
-  }
-
-  if (choices.length < requiredChoices) {
-    renderChoiceButtons();
-    document.querySelectorAll(".choice-button").forEach((choiceBtn, i) => {
-      choiceBtn.textContent = localStorage.getItem("generatedChoices").split(",")[i];
-    });
+  if (memberNames.length >= requiredAmount) {
+    const options = generateOptions(memberNames, requiredAmount);
   } else {
-    renderMembers();
+    const options = generateOptions(memberNames, memberNames.length);
+    middleContainer.innerHTML = "";
+    createOptionButtons(options.length);
+    if (memberNames.length == 0) alert(noMembersWarning);
+    else alert(limitedMembersWarning);
+  }
+
+  localStorage.setItem("options", JSON.stringify(options));
+
+  document.querySelectorAll(".option").forEach((v, i) => {
+    v.textContent = options[i];
+    const member = getData(`/members?name=${options[i]}`);
+    member["required_count"] += 1;
+    if (member["required_count"] >= requiredAmount) {
+      member["taken"] = true;
+    }
+    putData(`/members/${member}`, member);
+  });
+}
+
+function createOptionButtons(amount) {
+  for (let i = 0; i < amount; i++) {
+    const choiceButton = document.createElement("button");
+    choiceButton.classList.add("option");
+    middleContainer.appendChild(choiceButton);
+  }
+}
+
+function loadStorage(options) {
+  const valentines = JSON.parse(localStorage.getItem("valentines")) || [];
+  for (const valentine of valentines) {
+    createValentineButton(valentine);
+  }
+
+  if (valentines.length < requiredAmount) {
+    createOptionButtons(options.length);
+    document.querySelectorAll(".option").forEach((v, i) => (v.textContent = options[i]));
+  } else {
+    createExtras();
   }
 }
 
@@ -227,103 +164,110 @@ function backupChoices() {
 // Listeners
 //
 
-async function clickStart() {
-  localStorage.clear();
-  startBtn.setAttribute("class", "hidden");
-  if (localStorage.getItem("generatedChoices")) {
-    backupChoices();
+const startButton = document.getElementById("start-button");
+const valentineButtons = document.querySelectorAll(".valentine");
+const optionButtons = document.querySelectorAll(".option");
+const extraButtons = document.querySelectorAll(".extra");
+const sendButton = document.getElementById("send-button");
+const passwordButton = document.getElementById("password-button");
+
+startButton.addEventListener("click", () => {
+  startButton.setAttribute("class", "hidden");
+  const options = JSON.parse(localStorage.getItem("options")) || [];
+  if (options) {
+    loadStorage(options);
   } else {
-    renderChoiceButtons();
-    renderChoices();
+    createOptionButtons(options);
+    renderOptions();
   }
-}
+});
 
-function clickChoice(e) {
-  addName(e.textContent);
-  // Todo: generated choices localstorage array - e.textContain membercount -1
-  // Todo: if membercount == < 3 satisfied false
-  // Todo: 9 to requiredChoices
-  if (choicesArr.length < 9) {
-    renderChoices();
-  } else {
-    btnContainer.textContent = "";
-    renderMembers();
-  }
-}
+valentineButtons.forEach((valentineButton) => {
+  valentineButton.addEventListener("click", () => {});
+});
 
-function clickMember(e) {
-  e.setAttribute("class", "hidden");
-  addName(e.textContent);
-}
+optionButtons.forEach((optionButton) => {
+  optionButton.addEventListener("click", () => {
+    createValentineButton(optionButton.textContent);
 
-async function clickSend() {
-  let tempObj = {};
-  for (const member of members) {
-    tempObj[member[2]] = "Testing for Wild :)";
-  }
-  try {
-    await fetch("http://localhost:3000", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      // Todo: for each shit
-      body: JSON.stringify(tempObj),
-    });
-  } catch (error) {
-    alert("Server is out, please save your messages locally and contact JoJo.");
-    console.log(error);
-  }
-}
-
-async function openChart(passwordEl) {
-  try {
-    const res = await fetch("http://localhost:3000/auth", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password: document.getElementById(passwordEl).value }),
+    const options = JSON.parse(localStorage.getItem("options"));
+    const passedOptions = options.filter((v) => v != optionButton.textContent);
+    passedOptions.forEach((v) => {
+      const member = getData(`/members?name=${v}`);
+      member["required_count"] -= 1;
+      if (member["required_count"] < requiredAmount) {
+        member["taken"] = false;
+      }
+      putData(`/members/${member}`, member);
     });
 
-    if (res.status == 200) {
-      document.getElementById("auth").classList.add("hidden");
-      document.querySelectorAll(".chart-column").forEach((column) => {
-        column.classList.remove("hidden");
-      });
-    } else if (res.status == 403) {
-      alert("Password incorrect!");
+    const valentines = JSON.parse(localStorage.getItem("valentines"));
+    if (valentines.length < requiredAmount) {
+      renderOptions();
+    } else {
+      middleContainer.innerHTML = "";
+      createExtras();
     }
-  } catch (error) {
-    alert("Server is out, please save your messages locally and contact JoJo.");
-    console.log(error);
+  });
+});
+
+extraButtons.forEach((extraButton) => {
+  extraButton.addEventListener("click", () => {
+    createValentineButton(extraButton.textContent);
+    extraButton.classList.add("hidden");
+  });
+});
+
+sendButton.addEventListener("click", async () => {
+  const valentines = JSON.parse(localStorage.getItem("valentines"));
+  let messages = {};
+  valentines.forEach((valentine) => {
+    const id = members.find((member) => member.name === valentine).id;
+    const message = messages[valentine + "-textarea"];
+    messages[id] = message;
+  });
+  postData("/messages", messages);
+});
+
+passwordButton.addEventListener("click", async () => {
+  const chartPassword = document.getElementById("chart-password");
+  const res = await postData("/auth", { password: chartPassword.value });
+  if (res.status == 200) {
+    document.getElementById("chart-auth").classList.add("hidden");
+    document.querySelectorAll(".chart-column").forEach((column) => {
+      column.classList.remove("hidden");
+    });
+  } else if (res.status == 403) {
+    alert("Password incorrect!");
+  } else {
+    alert("Something went wrong, contact JoJo. Error code: ", res.status);
   }
-}
+});
 
 //
 // Initialization
 //
 
 function positionChartAuth() {
-  const chart = document.getElementById("name-chart");
-  const auth = document.getElementById("auth");
+  const chart = document.getElementById("valentines-chart");
+  const auth = document.getElementById("chart-auth");
   const authLeft = chart.offsetLeft + chart.offsetWidth / 2;
   const authTop = chart.offsetTop + chart.offsetHeight / 2;
   auth.style.left = authLeft - auth.offsetWidth / 2 + "px";
   auth.style.top = authTop + auth.offsetHeight / 2 + "px";
 }
 
-function createChart() {
-  const chartBody = document.getElementById("name-chart-data");
-  for (item of memberNames) {
+async function createChart() {
+  const memberNames = await getData("/members");
+  const chartBody = document.getElementById("chart-body");
+  for (const member of memberNames) {
     const tr = document.createElement("tr");
     const th = document.createElement("th");
-    th.textContent = item;
+    th.textContent = member["name"];
     const td = document.createElement("td");
-    td.setAttribute("id", item);
-    td.setAttribute("style", "--size: calc( 0/6 )");
+    td.setAttribute("id", member);
+    const totalChosen = member["required_count"] + member["extra_count"];
+    td.setAttribute("style", "--size: calc( " + totalChosen + "/10 )");
     td.classList.add("chart-column");
     td.classList.add("hidden");
 
@@ -334,10 +278,4 @@ function createChart() {
   }
 }
 
-// const len = memberNames.length * 3;
-// for (let i = 0; i < len; i++) {
-//   const randomName = getRandomNames(memberNames, 3)[Math.floor(Math.random() * 3)];
-//   updateChart(randomName);
-// }
-
-createChart();
+await createChart();

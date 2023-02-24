@@ -14,25 +14,25 @@
   <body>
     <h1>Ember Inn Valentine's Event</h1>
     <div id="full-container">
-      <div id="name-container">
+      <div id="left-container">
         <div id="container-title">Your Valentines</div>
       </div>
-      <div id="button-container">
-        <button id="start-button" onclick="clickStart()">Start</button>
+      <div id="middle-container">
+        <button id="start-button">Start</button>
       </div>
-      <div id="member-container">
+      <div id="right-container">
         <div class="container-title">Members</div>
       </div>
     </div>
-		<table class="charts-css column show-heading show-labels show-primary-axis show-6-secondary-axes" id="name-chart">
+		<table class="charts-css column show-heading show-labels show-primary-axis show-6-secondary-axes" id="valentines-chart">
 			<caption> Name Distribution Chart </caption>
-			<tbody id="name-chart-data">
+			<tbody id="chart-body">
 			</tbody>
 		</table>
-			<div id="auth">
-				<input type="password" id="password" />
+			<div id="chart-auth">
+				<input type="password" id="chart-password" />
 				<br />
-				<button onclick="openChart('password')" id="testButton">Submit Password</button>
+				<button id="password-button">Submit Password</button>
 			</div>
   </body>
 </html>
